@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
@@ -13,8 +13,8 @@ jogo2 = Jogo('Pokemon Gold', 'RPG', 'GBA')
 jogo3 = Jogo('Mortal Kombat', 'Luta', 'SNES')
 lista = [jogo1, jogo2, jogo3]
 
-@app.route('/lista')
-def home():
+@app.route('/')
+def index():
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 @app.route('/novo')
@@ -27,8 +27,19 @@ def criar():
     categoria = request.form['categoria']
     console = request.form['console']
     jogo = Jogo(nome, categoria, console)
-    list.append(jogo)
-    return render_template('lista.html', titulo='Jogos', jogos=lista)
+    lista.append(jogo)
+    return redirect('/')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/autenticar', methods=['POST',])
+def autenticar():
+    if 'mestra' == request.form['senha']:
+        return redirect('/')
+    else:
+        return redirect('/login')
 
 if __name__ == "__main__":
     app.run(debug=True)
