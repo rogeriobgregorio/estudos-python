@@ -33,6 +33,7 @@ cursor.execute("""
 
 # Inserção de usuários
 usuarios = [
+    ('rogerio', 'Rogério Gregório', '1234'),
     ('luan', 'Luan Marques', 'flask'),
     ('nico', 'Nico', '7a1'),
     ('danilo', 'Danilo', 'vegas')
