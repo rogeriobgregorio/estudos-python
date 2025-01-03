@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash, url_for
-from dao import JogoDao
+from dao import JogoDao, UsuarioDao
 from flask_mysqldb import MySQL
 from models import Jogo, Usuario
 
@@ -14,19 +14,11 @@ app.config['MYSQL_PORT'] = 3306
 
 db = MySQL(app)
 jogo_dao = JogoDao(db)
-
-jogo1 = Jogo('Super Mario', 'Ação', 'SNES')
-jogo2 = Jogo('Pokemon Gold', 'RPG', 'GBA')
-jogo3 = Jogo('Mortal Kombat', 'Luta', 'SNES')
-lista = [jogo1, jogo2, jogo3]
-
-usuario1 = Usuario('rogerio', 'Rogério Gregório', '1234')
-usuario2 = Usuario('fulano', 'Fulano Silva', '567')
-usuario3 = Usuario('ciclano', 'Ciclano Silva', '890')
-usuarios = {usuario1.id: usuario1, usuario2.id: usuario2, usuario3.id: usuario3}
+usuario_dao = UsuarioDao(db)
 
 @app.route('/')
 def index():
+    lista = jogo_dao.listar()
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 @app.route('/novo')
@@ -44,6 +36,17 @@ def criar():
     jogo_dao.salvar(jogo)
     return redirect(url_for('index'))
 
+@app.route('/editar/<int:id>')
+def editar(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login', proxima=url_for('editar')))
+    jogo = jogo_dao.busca_por_id(id)
+    return render_template('editar.html', titulo='Editar Jogo', jogo=jogo)
+
+@app.route('/atualizar', methods=['POST',])
+def atualizar():
+
+
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima')
@@ -51,8 +54,8 @@ def login():
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
-    if request.form['usuario'] in usuarios:
-        usuario = usuarios[request.form['usuario']]
+    usuario = usuario_dao.buscar_por_id(request.form['usuario'])
+    if usuario:
         if usuario.senha == request.form['senha']:
             session['usuario_logado'] = usuario.id
             flash(usuario.nome + ' logado com sucesso!')
