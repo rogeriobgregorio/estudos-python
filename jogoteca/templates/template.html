@@ -11,17 +11,23 @@
   </head>
   <body>
     <div class="container">
+      <header class="d-flex justify-content-between align-items-center my-3">
+        <h1>Jogoteca</h1>
+        {% if session.get('usuario_logado') %}
+        <form action="{{ url_for('logout') }}" method="POST" style="margin: 0">
+          <button class="btn btn-danger" type="submit">Sair</button>
+        </form>
+        {% else %}
+        <a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+      </header>
       {% with messages = get_flashed_messages() %} {% if messages %}
       <ul id="messages" class="list-unstyled mt-3">
         {% for message in messages %}
         <li class="alert alert-success">{{ message }}</li>
         {% endfor %}
       </ul>
-      {% endif %} {% endwith %}
-      <div class="page-header">
-        <h1>{{ titulo }}</h1>
-      </div>
-      {% block conteudo %}{% endblock %}
+      {% endif %} {% endwith %} {% block conteudo %}{% endblock %}
     </div>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
   </body>
