@@ -1,1 +1,23 @@
-venv
+# Ignorar o diretório do ambiente virtual
+venv/
+# env/
+# myenv/
+
+# Ignorar arquivos de compilação do Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignorar arquivos de configuração de IDEs
+.vscode/
+.idea/
+
+# Ignorar arquivos de dependências gerados
+Pipfile.lock
+*.egg-info/
+
+# Ignorar arquivos de logs
+*.log
+
+# Ignorar arquivos de backup
+*~
