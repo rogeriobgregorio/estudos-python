@@ -3,12 +3,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
 from app import app, db
 from models.user import User
-from schemas.user_schema import user_schema
+from schemas.user_schema import UserSchema
 
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    errors = user_schema.validate(data)
+    errors = UserSchema.validate(data)
     if errors:
         return jsonify(errors), 400
     
@@ -16,7 +16,7 @@ def register():
     new_user = User(name=data['name'], email=data['email'], password=hashed_password, role=data.get('role', 'CLIENT'))
     db.session.add(new_user)
     db.session.commit()
-    return user_schema.jsonify(new_user), 201
+    return UserSchema.jsonify(new_user), 201
 
 @app.route('/login', methods=['POST'])
 def login():
