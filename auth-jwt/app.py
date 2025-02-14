@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from config import Config
+from werkzeug.security import generate_password_hash
 
 # Inicializar a aplicação e as extensões
 app = Flask(__name__)
@@ -15,7 +16,7 @@ from routes.auth_routes import *
 from routes.user_routes import *
 
 # Criar banco e adicionar usuário ADMIN padrão
-@app.before_first_request
+@app.before_request
 def create_tables():
     db.create_all()
     if not User.query.filter_by(email='admin@example.com').first():
