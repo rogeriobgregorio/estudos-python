@@ -6,3 +6,5 @@ class UserSchema(Schema):
     email = fields.Email(required=True)
     password = fields.Str(required=True, load_only=True)
     role = fields.Str(validate=validate.OneOf(['ADMIN', 'CLIENT']))
+
+users_schema = UserSchema(many=True)
