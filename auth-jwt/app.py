@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from config import Config
 from werkzeug.security import generate_password_hash
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Inicializar a aplicação e as extensões
 app = Flask(__name__)
@@ -14,6 +17,10 @@ jwt = JWTManager(app)
 # Importar as rotas e modelos
 from routes.auth_routes import *
 from routes.user_routes import *
+
+@app.route('/')
+def home():
+    return 'Bem-vindo à aplicação!'
 
 # Criar banco e adicionar usuário ADMIN padrão
 @app.before_request
