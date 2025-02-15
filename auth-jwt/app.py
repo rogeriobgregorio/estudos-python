@@ -9,6 +9,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Inicializar a aplicação e as extensões
 app = Flask(__name__)
+app.config['DEBUG'] = True
+app.config['ENV'] = 'development'
 app.config.from_object(Config)
 
 db = SQLAlchemy(app)
@@ -19,18 +21,18 @@ from routes.auth_routes import *
 from routes.user_routes import *
 
 @app.route('/')
-def home():
+def index():
     return 'Bem-vindo à aplicação!'
 
 # Criar banco e adicionar usuário ADMIN padrão
 @app.before_request
 def create_tables():
     db.create_all()
-    if not User.query.filter_by(email='admin@example.com').first():
-        admin = User(name='Admin', email='admin@example.com', password=generate_password_hash('admin123'), role='ADMIN')
+    if not User.query.filter_by(email='admin@email.com').first():
+        admin = User(name='Admin', email='admin@email.com', password=generate_password_hash('admin123'), role='ADMIN')
         db.session.add(admin)
         db.session.commit()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=True) 
     

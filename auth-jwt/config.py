@@ -14,3 +14,5 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = 'supersecretkey'
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
+    DEBUG = True
+    ENV = 'development'
