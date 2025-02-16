@@ -15,4 +15,4 @@ class Config:
     JWT_SECRET_KEY = 'supersecretkey'
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=1)
     DEBUG = True
-    ENV = 'development'
+    FLASK_ENV = "development"  # Modo de ambiente do Flask
