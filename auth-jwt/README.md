@@ -12,7 +12,6 @@ Esta é uma API para gerenciamento de usuários, construída com **Flask**, **SQ
 - [Rodando a Aplicação](#rodando-a-aplicação)
 - [Rotas da API](#rotas-da-api)
 - [Estrutura de Pastas](#estrutura-de-pastas)
-- [Contribuição](#contribuição)
 - [Licença](#licença)
 
 ## Descrição do Projeto
