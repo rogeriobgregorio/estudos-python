@@ -216,7 +216,7 @@ Recomenda-se também usar um ambiente virtual para isolar as dependências do se
 ## Estrutura de Pastas
 
 ```
-my_flask_app/
+auth_jwt/
 │
 ├── app.py                      # Arquivo principal (inicialização da aplicação)
 ├── config.py                   # Arquivo de configuração
@@ -231,7 +231,7 @@ my_flask_app/
 │   ├── auth_routes.py          # Rotas de autenticação
 │   ├── user_routes.py          # Rotas de usuário
 │
-├── migrations/                 # Arquivos de migração (se usar Alembic)
+├── migrations/                 # Arquivos de migração
 │
 ├── instance/
 │   └── users.db                # Banco de dados SQLite
