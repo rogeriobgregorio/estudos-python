@@ -8,7 +8,8 @@ from schemas.user_schema import UserSchema
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    errors = UserSchema.validate(data)
+    schema = UserSchema()
+    errors = schema.validate(data)
     if errors:
         return jsonify(errors), 400
     
