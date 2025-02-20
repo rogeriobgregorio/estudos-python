@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate
 from config import Config
 from werkzeug.security import generate_password_hash
 import logging
@@ -16,6 +17,8 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
 
+migrate = Migrate(app, db)
+
 # Importar as rotas e modelos
 from routes.auth_routes import *
 from routes.user_routes import *
@@ -27,7 +30,6 @@ def index():
 # Criar banco e adicionar usuário ADMIN padrão
 @app.before_request
 def create_tables():
-    db.create_all()
     if not User.query.filter_by(email='admin@email.com').first():
         admin = User(name='Admin', email='admin@email.com', password=generate_password_hash('admin123'), role='ADMIN')
         db.session.add(admin)
