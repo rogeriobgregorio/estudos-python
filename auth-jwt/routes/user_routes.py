@@ -6,10 +6,9 @@ from schemas.user_schema import UserSchema, users_schema
 from werkzeug.security import generate_password_hash
 
 def check_user_permission(user, identity, required_role):
-    # Verifica se o usuário tem o 'role' correto ou se é o próprio usuário tentando realizar a operação
     if identity['role'] != required_role and identity['id'] != user.id:
         return jsonify({'message': 'Unauthorized'}), 403
-    return None  # Retorna None se não houver erro
+    return None  
 
 @app.route('/me', methods=['GET'])
 @jwt_required()
@@ -34,8 +33,9 @@ def update_user(user_id):
     identity = get_jwt_identity()
     user = User.query.get(user_id)
     
-    if not user or (identity['role'] != 'ADMIN' and identity['id'] != user.id):
-        return jsonify({'message': 'Unauthorized'}), 403
+    permission_error = check_user_permission(user, identity, 'ADMIN')
+    if permission_error:
+        return permission_error
     
     data = request.get_json()
     user.name = data.get('name', user.name)
@@ -52,8 +52,9 @@ def delete_user(user_id):
     identity = get_jwt_identity()
     user = User.query.get(user_id)
     
-    if not user or (identity['role'] != 'ADMIN' and identity['id'] != user.id):
-        return jsonify({'message': 'Unauthorized'}), 403
+    permission_error = check_user_permission(user, identity, 'ADMIN')
+    if permission_error:
+        return permission_error
     
     db.session.delete(user)
     db.session.commit()
