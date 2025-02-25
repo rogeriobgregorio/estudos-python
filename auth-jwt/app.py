@@ -8,7 +8,7 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# Inicializar a aplicação e as extensões
+# Inicializa a aplicação e as extensões
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['ENV'] = 'development'
@@ -19,7 +19,7 @@ jwt = JWTManager(app)
 
 migrate = Migrate(app, db)
 
-# Importar as rotas e modelos
+# Importa as rotas e modelos
 from routes.auth_routes import *
 from routes.user_routes import *
 
@@ -27,7 +27,7 @@ from routes.user_routes import *
 def index():
     return 'Bem-vindo à aplicação!'
 
-# Criar banco e adicionar usuário ADMIN padrão
+# Cria o banco e adiciona o usuário ADMIN padrão
 @app.before_request
 def create_tables():
     if not User.query.filter_by(email='admin@email.com').first():
