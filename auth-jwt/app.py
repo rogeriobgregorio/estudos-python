@@ -17,7 +17,12 @@ app.config['ENV'] = 'development'
 app.config.from_object(Config)
 
 # Configuração do CORS
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {
+    "origins": "*",  # Permite todos os domínios
+    "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],  # Permite todos os métodos HTTP
+    "allow_headers": "*",  # Permite todos os cabeçalhos
+    "supports_credentials": True  # Permite credenciais
+}})
 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
