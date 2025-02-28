@@ -49,8 +49,8 @@ Recomenda-se também usar um ambiente virtual para isolar as dependências do se
 1. Clone o repositório para sua máquina local:
 
    ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
-   cd nome-do-repositorio
+   git clone git@github.com:rogeriobgregorio/estudos-python.git
+   cd estudos-python
    ```
 
 2. Crie e ative um ambiente virtual:
@@ -218,7 +218,7 @@ Recomenda-se também usar um ambiente virtual para isolar as dependências do se
 ```
 auth_jwt/
 │
-├── app.py                      # Arquivo principal (inicialização da aplicação)
+├── app.py                      # Arquivo principal (pode ser renomeado para 'run.py')
 ├── config.py                   # Arquivo de configuração
 │
 ├── models/
@@ -228,15 +228,15 @@ auth_jwt/
 │   └── user_schema.py          # Esquema Marshmallow para Usuário
 │
 ├── routes/
-│   ├── auth_routes.py          # Rotas de autenticação
-│   ├── user_routes.py          # Rotas de usuário
+│   ├── auth_routes.py          # Rotas de autenticação (login, registro, etc.)
+│   ├── user_routes.py          # Rotas de usuário (get, update, delete, etc.)
 │
-├── migrations/                 # Arquivos de migração
+├── migrations/                 # Para armazenar arquivos de migração de banco de dados (Alembic)
 │
 ├── instance/
-│   └── users.db                # Banco de dados SQLite
+│   └── users.db                # Banco de dados SQLite (pode ser movido para um diretório 'instance')
 │
 ├── requirements.txt            # Dependências do projeto
-├── .gitignore                  # Arquivo de ignorados (banco de dados ambiente virtual, etc.)
+├── .gitignore                  # Arquivo para ignorar arquivos (como banco de dados, ambiente virtual, etc.)
 └── README.md                   # Documentação do projeto
 ```
