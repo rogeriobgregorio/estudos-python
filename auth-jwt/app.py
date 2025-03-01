@@ -49,6 +49,7 @@ def create_tables():
         )
         db.session.add(admin)
         db.session.commit()
+        print("Usuário admin criado com sucesso!")
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True) 
