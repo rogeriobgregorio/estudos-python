@@ -218,25 +218,31 @@ Recomenda-se também usar um ambiente virtual para isolar as dependências do se
 ```
 auth_jwt/
 │
-├── app.py                      # Arquivo principal (pode ser renomeado para 'run.py')
-├── config.py                   # Arquivo de configuração
-│
-├── models/
-│   └── user.py                 # Modelo de Usuário
-│
-├── schemas/
-│   └── user_schema.py          # Esquema Marshmallow para Usuário
-│
-├── routes/
-│   ├── auth_routes.py          # Rotas de autenticação (login, registro, etc.)
-│   ├── user_routes.py          # Rotas de usuário (get, update, delete, etc.)
+├── instance/                   # Banco de dados SQLite
+│   └── users.db                
 │
 ├── migrations/                 # Para armazenar arquivos de migração de banco de dados (Alembic)
 │
-├── instance/
-│   └── users.db                # Banco de dados SQLite (pode ser movido para um diretório 'instance')
+├── models/                     # Modelos
+│   └── user.py                 # Modelo de Usuário
 │
+├── routes/                     # Rotas
+│   ├── auth_routes.py          # Rotas de autenticação 
+│   └── user_routes.py          # Rotas de usuário 
+│
+├── schemas/                    # Esquemas Marshmallow
+│   └── user_schema.py          # Esquema Marshmallow para Usuário
+│
+├── service/                    # Serviços
+│   └── security.py             # Serviços de hash e validação de senhas
+│
+├── venv/                       # Ambiente virtual
+│
+├── .env                        # Variáveis de ambiente
+├── .gitignore                  # Arquivo para ignorar arquivos
+├── app.py                      # Arquivo principal
+├── config.py                   # Arquivo de configuração
+├── LICENSE                     # Licença MIT
+├── README.md                   # Documentação do projeto
 ├── requirements.txt            # Dependências do projeto
-├── .gitignore                  # Arquivo para ignorar arquivos (como banco de dados, ambiente virtual, etc.)
-└── README.md                   # Documentação do projeto
 ```
