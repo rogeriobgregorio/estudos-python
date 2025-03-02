@@ -1,5 +1,5 @@
 from flask import request, jsonify
-from werkzeug.security import generate_password_hash, check_password_hash
+from service.security import hash_password, check_password
 from flask_jwt_extended import create_access_token
 from app import app, db
 from models.user import User
@@ -13,7 +13,7 @@ def register():
     if errors:
         return jsonify(errors), 400
     
-    hashed_password = generate_password_hash(data['password'])
+    hashed_password = hash_password(data['password'])
     new_user = User(name=data['name'], email=data['email'], password=hashed_password, role=data.get('role', 'CLIENT'))
     db.session.add(new_user)
     db.session.commit()
@@ -24,7 +24,7 @@ def login():
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
     
-    if user and check_password_hash(user.password, data['password']):
+    if user and check_password(user.password, data['password']):
         access_token = create_access_token(identity={'id': user.id, 'role': user.role})
         return jsonify(access_token=access_token), 200
     
