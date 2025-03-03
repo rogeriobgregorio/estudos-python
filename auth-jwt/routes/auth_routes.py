@@ -1,11 +1,13 @@
-from flask import request, jsonify
+from flask import Blueprint, request, jsonify
 from service.security import hash_password, check_password
 from flask_jwt_extended import create_access_token
 from app import app, db
 from models.user import User
 from schemas.user_schema import UserSchema
 
-@app.route('/register', methods=['POST'])
+auth_bp = Blueprint('auth', __name__)  # Cria o Blueprint
+
+@auth_bp.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
     schema = UserSchema()
@@ -19,7 +21,7 @@ def register():
     db.session.commit()
     return UserSchema.jsonify(new_user), 201
 
-@app.route('/login', methods=['POST'])
+@auth_bp.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     user = User.query.filter_by(email=data['email']).first()
