@@ -1,23 +1,25 @@
-from flask import request, jsonify
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from app import app, db
 from models.user import User
 from schemas.user_schema import UserSchema, users_schema
 from werkzeug.security import generate_password_hash
 
+user_bp = Blueprint('user', __name__)  # Cria o Blueprint
+
 def check_user_permission(user, identity, required_role):
     if identity['role'] != required_role and identity['id'] != user.id:
         return jsonify({'message': 'Unauthorized'}), 403
     return None  
 
-@app.route('/me', methods=['GET'])
+@user_bp.route('/me', methods=['GET'])
 @jwt_required()
 def get_current_user():
     identity = get_jwt_identity()
     user = User.query.get(identity['id'])
     return UserSchema.jsonify(user)
 
-@app.route('/users', methods=['GET'])
+@user_bp.route('/users', methods=['GET'])
 @jwt_required()
 def get_users():
     identity = get_jwt_identity()
@@ -27,7 +29,7 @@ def get_users():
     users = User.query.all()
     return users_schema.jsonify(users)
 
-@app.route('/users/<int:user_id>', methods=['PUT'])
+@user_bp.route('/users/<int:user_id>', methods=['PUT'])
 @jwt_required()
 def update_user(user_id):
     identity = get_jwt_identity()
@@ -46,7 +48,7 @@ def update_user(user_id):
     db.session.commit()
     return UserSchema.jsonify(user)
 
-@app.route('/users/<int:user_id>', methods=['DELETE'])
+@user_bp.route('/users/<int:user_id>', methods=['DELETE'])
 @jwt_required()
 def delete_user(user_id):
     identity = get_jwt_identity()
