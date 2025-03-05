@@ -8,6 +8,10 @@ from models.user import User
 from werkzeug.security import generate_password_hash
 import logging
 
+# Importa os Blueprints
+from routes.auth_routes import auth_bp
+from routes.user_routes import user_bp
+
 logging.basicConfig(level=logging.DEBUG)
 
 # Inicializa a aplicação e as extensões
@@ -26,12 +30,11 @@ CORS(app, resources={r"/*": {
 
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
-
 migrate = Migrate(app, db)
 
-# Importa as rotas e modelos
-from routes.auth_routes import *
-from routes.user_routes import *
+# Registra os Blueprints
+app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(user_bp, url_prefix='/api')
 
 @app.route('/')
 def index():
