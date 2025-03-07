@@ -40,20 +40,6 @@ app.register_blueprint(user_bp, url_prefix='/api')
 def index():
     return 'Bem-vindo à aplicação!'
 
-# Cria o banco e adiciona o usuário ADMIN padrão
-@app.before_first_request
-def create_tables():
-    if not User.query.filter_by(email='admin@email.com').first():
-        admin = User(
-            name='Admin', 
-            email='admin@email.com', 
-            password=generate_password_hash('admin123'), 
-            role='ADMIN'
-        )
-        db.session.add(admin)
-        db.session.commit()
-        print("Usuário admin criado com sucesso!")
-
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True) 
     
