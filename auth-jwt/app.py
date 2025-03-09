@@ -4,8 +4,6 @@ from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
 from config import Config
 from flask_cors import CORS 
-from models.user import User
-from werkzeug.security import generate_password_hash
 import logging
 
 # Importa os Blueprints
@@ -28,7 +26,8 @@ CORS(app, resources={r"/*": {
     "supports_credentials": True  # Permite credenciais
 }})
 
-db = SQLAlchemy(app)
+# Inicializa o banco de dados com configuração de pool
+db = SQLAlchemy(app, engine_options=Config.SQLALCHEMY_ENGINE_OPTIONS)
 jwt = JWTManager(app)
 migrate = Migrate(app, db)
 
