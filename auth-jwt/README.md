@@ -242,7 +242,14 @@ auth_jwt/
 ├── .gitignore                  # Arquivo para ignorar arquivos
 ├── app.py                      # Arquivo principal
 ├── config.py                   # Arquivo de configuração
+├── init_db.py					        # Arquivo para iniciar banco de dados
 ├── LICENSE                     # Licença MIT
 ├── README.md                   # Documentação do projeto
 ├── requirements.txt            # Dependências do projeto
 ```
+
+---
+
+## 📌 Autor  
+
+**Rogério Gregório**  
