@@ -65,7 +65,7 @@ Para executar os projetos, tenha o Python instalado e siga as instruções indiv
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/rogeriobgregorio/estudos-python.git
 
 # Acesse um projeto
 cd auth-jwt  # ou outro diretório
