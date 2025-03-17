@@ -42,7 +42,7 @@ O repositório está organizado da seguinte forma:
 - Autenticação de usuários.
 - Utiliza SQLite como banco de dados.
 
-📌 **Instruções:** (README em breve)
+📌 **Instruções:** [Leia mais](jogoteca/README.md)
 
 ---
 
